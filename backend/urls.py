@@ -19,6 +19,7 @@ from django.urls import include, path
 
 import usuarios.urls
 from core.views import CustomTokenObtainPairView,CustomTokenRefreshView, LogoutView
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +27,10 @@ urlpatterns = [
     path('auth/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+
+    # YOUR PATTERNS
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional UI:
+    path('api/docs', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    # path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]

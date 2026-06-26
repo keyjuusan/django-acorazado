@@ -40,11 +40,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
+
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
 
-    "core"
+    "core",
+
+    'drf_spectacular'
 ]
 
 MIDDLEWARE = [
@@ -131,12 +133,13 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         # "rest_framework_simplejwt.authentication.JWTAuthentication",
-        
+
         # custom
         "core.authenticate.CustomJWTAuthentication",
     ],
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,  # Requiere 'rest_framework_simplejwt.token_blacklist' en INSTALLED_APPS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
@@ -168,3 +171,12 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 CSRF_COOKIE_SAMESITE = 'Lax'  # O 'None' si usas HTTPS en dominios distintos
 SESSION_COOKIE_SAMESITE = 'Lax'
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
