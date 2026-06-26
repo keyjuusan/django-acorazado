@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
-from re import DEBUG
 import sys
 
 
 def main():
     """Run administrative tasks."""
+    DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
     if DEBUG:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings.local')
     else:
