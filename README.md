@@ -61,9 +61,9 @@ Servidor disponible en `http://localhost:8000`
 
 **Flow:**
 
-1. `POST /auth/login/` → Recibes cookies + CSRF token
+1. `POST /api/auth/login/` → Recibes cookies + CSRF token
 2. Llamadas autenticadas → Header `X-CSRFToken: <valor>`
-3. `POST /auth/logout/` → Blacklist refresh token + borra cookies
+3. `POST /api/auth/logout/` → Blacklist refresh token + borra cookies
 
 **Cookies:**
 
@@ -99,8 +99,8 @@ Antes de deployar:
 
 | Método | Endpoint | Descripción |
 |--------|---------|-------------|
-| POST | `/auth/login/` | Obtener tokens JWT |
-| POST | `/auth/logout/` | Cerrar sesión |
+| POST | `/api/auth/login/` | Obtener tokens JWT |
+| POST | `/api/auth/logout/` | Cerrar sesión |
 | POST | `/api/token/refresh/` | Refrescar access token |
 | GET/POST | `/api/usuarios/` | Listar / crear usuarios |
 | GET/PUT/PATCH/DELETE | `/api/usuarios/{id}/` | Detalle / editar / eliminar usuario |
