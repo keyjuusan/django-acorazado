@@ -24,8 +24,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/",include(usuarios.urls)),
-    path('auth/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
+    path('api/auth/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/logout/', LogoutView.as_view(), name='auth_logout'),
     path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
 
     # YOUR PATTERNS
