@@ -1,4 +1,4 @@
-# Backend - Proyecto Ski
+# Django Acorazado
 
 Backend API REST construido con Django + Django REST Framework. Es la base de seguridad para el proyecto.
 
@@ -10,6 +10,7 @@ Backend API REST construido con Django + Django REST Framework. Es la base de se
 - **SQLite** - Base de datos (desarrollo)
 - **drf-spectacular** - Documentación/openapi
 - **django-cors-headers** - CORS configurado
+- **django-filter** - Filtros para endpoints
 
 ## Requisitos
 
@@ -41,12 +42,11 @@ Servidor disponible en `http://localhost:8000`
 ## Estructura
 
 ```
-backend/
-├── backend/           # Configuración Django
-│   ├── settings/      # Config por entorno
+├── backend/               # Configuración Django
+│   ├── settings/          # Config por entorno
 │   └── urls.py
-├── usuarios/         # CRUD User/Group
-├── sesion/            # Auth JWT
+├── core/                  # Auth JWT (login, logout, refresh)
+├── usuarios/              # CRUD User/Group
 ├── manage.py
 └── pyproject.toml
 ```
@@ -66,6 +66,7 @@ backend/
 3. `POST /auth/logout/` → Blacklist refresh token + borra cookies
 
 **Cookies:**
+
 - `access_token` - http-only, no accesible desde JS
 - `refresh_token` - http-only
 - `csrftoken` - disponible para leer desde JS (necesario para agregar en headers)
@@ -89,6 +90,8 @@ Configurado para `http://localhost:3000` (Next.js frontend).
 Antes de deployar:
 - `DEBUG = False`
 - `AUTH_COOKIE_SECURE = True`
+- `SESSION_COOKIE_SECURE = True`
+- `CSRF_COOKIE_SECURE = True`
 - Cambiar `SECRET_KEY`
 - Configurar `ALLOWED_HOSTS`
 
@@ -99,16 +102,18 @@ Antes de deployar:
 | POST | `/auth/login/` | Obtener tokens JWT |
 | POST | `/auth/logout/` | Cerrar sesión |
 | POST | `/api/token/refresh/` | Refrescar access token |
-| GET | `/api/users/` | Listar usuarios |
-| POST | `/api/users/` | Crear usuario |
-| GET | `/api/groups/` | Listar grupos |
-| GET | `/api/docs/` | Documentación API |
+| GET/POST | `/api/usuarios/` | Listar / crear usuarios |
+| GET/PUT/PATCH/DELETE | `/api/usuarios/{id}/` | Detalle / editar / eliminar usuario |
+| GET/POST | `/api/grupos/` | Listar / crear grupos |
+| GET/PUT/PATCH/DELETE | `/api/grupos/{id}/` | Detalle / editar / eliminar grupo |
+| GET | `/api/docs` | Documentación API (Swagger UI) |
+| GET | `/api/schema/` | Schema OpenAPI |
 
 Admin: `/admin/`
 
 ## Documentación API
 
-Swagger UI disponible en `/api/docs/`
+Swagger UI disponible en `/api/docs`
 
 Schema OpenAPI en `/api/schema/`
 
