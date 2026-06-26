@@ -81,19 +81,43 @@ Servidor disponible en `http://localhost:8000`
 | `settings/local.py` | Desarrollo local |
 | `settings/produccion.py` | Producción |
 
+El entorno se selecciona automáticamente vía la variable `DJANGO_DEBUG`:
+
+- `DJANGO_DEBUG=True` (o no setear) → `local.py`
+- `DJANGO_DEBUG=False` → `produccion.py`
+
 ### CORS
 
-Configurado para `http://localhost:3000` (Next.js frontend).
+Configurado para `http://localhost:3000` (Next.js frontend) en desarrollo.
 
 ### Producción
 
-Antes de deployar:
-- `DEBUG = False`
-- `AUTH_COOKIE_SECURE = True`
-- `SESSION_COOKIE_SECURE = True`
-- `CSRF_COOKIE_SECURE = True`
-- Cambiar `SECRET_KEY`
-- Configurar `ALLOWED_HOSTS`
+Antes de deployar, setear estas variables de entorno:
+
+| Variable | Obligatoria | Descripción |
+|----------|-------------|-------------|
+| `DJANGO_DEBUG` | Sí | `False` |
+| `DJANGO_SECRET_KEY` | Sí | Clave secreta segura (no la del fallback) |
+| `DJANGO_ALLOWED_HOSTS` | Sí | Dominios permitidos, separados por coma |
+| `DJANGO_CORS_ORIGINS` | Sí | Orígenes CORS, separados por coma |
+| `DJANGO_CSRF_TRUSTED_ORIGINS` | Sí | Orígenes CSRF, separados por coma |
+
+Base de datos (opcional — por defecto SQLite):
+
+| Variable | Descripción |
+|----------|-------------|
+| `DB_ENGINE` | Ej: `django.db.backends.postgresql` |
+| `DB_NAME` | Nombre de la base de datos |
+| `DB_USER` | Usuario |
+| `DB_PASSWORD` | Contraseña |
+| `DB_HOST` | Host |
+| `DB_PORT` | Puerto |
+
+Logging:
+
+| Variable | Descripción |
+|----------|-------------|
+| `DJANGO_LOG_LEVEL` | Nivel de log (`WARNING` por defecto) |
 
 ## Endpoints
 
